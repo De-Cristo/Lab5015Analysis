@@ -1,0 +1,180 @@
+#ifndef ANALYSIS_UTILS_H
+#define ANALYSIS_UTILS_H
+
+#include <iostream>
+#include <fstream>
+#include <iomanip>
+#include <cmath>
+#include <string>
+#include <sstream>
+#include <vector>
+#include <map>
+
+#include "TH1F.h"
+
+#define PI 3.14159265359
+
+
+
+class EventClass : public TObject {
+
+public:
+  std::string stepLabel;
+  std::string ch1;
+  std::string ch2;
+  std::string label1;
+  std::string label2;
+  std::string label12;
+  float x;
+  float y;
+  int isBar1;
+  int isBar2;
+  int isBarSide1;
+  int isBarSide2;
+  int isHorizontal1;
+  int isHorizontal2;
+  float qfine1;
+  float qfine1L;
+  float qfine1R;
+  float qfine2;
+  float qfine2L;
+  float qfine2R;
+  float tot1;
+  float tot1L;
+  float tot1R;
+  float tot2;
+  float tot2L;
+  float tot2R;
+  float energy1;
+  float energy1L;
+  float energy1R;
+  float energy2;
+  float energy2L;
+  float energy2R;
+  long long time1;
+  long long time2;
+  float t1fine1;
+  float t1fine1L;
+  float t1fine1R;
+  float t1fine2;
+  float t1fine2L;
+  float t1fine2R;
+  
+  ClassDef(EventClass,1);
+};
+
+
+
+class ModuleEventClass : public TObject {
+
+public:
+  int barID;
+  float Vov;
+  int vth1;
+
+  float energyL;
+  float energyR;
+  float totL;
+  float totR;
+  long long timeL;
+  long long timeR;
+  unsigned short t1fineL;
+  unsigned short t1fineR;
+  float qT1L;
+  float qT1R;
+  
+  float barM_energyL;
+  float barM_energyR;
+  float barM_totL;
+  float barM_totR;
+  long long barM_timeL;
+  long long barM_timeR;
+  unsigned short barM_t1fineL;
+  unsigned short barM_t1fineR;
+  float barM_qT1L;
+  float barM_qT1R;
+
+  float barP_energyL;
+  float barP_energyR;
+  float barP_totL;
+  float barP_totR;
+  long long barP_timeL;
+  long long barP_timeR;
+  unsigned short barP_t1fineL;
+  unsigned short barP_t1fineR;
+  float barP_qT1L;
+  float barP_qT1R;
+  
+  //tracker information
+  int nhits;
+  float x;
+  float y;
+
+  //MCP information
+  float amp_MCP;
+  float t_MCP;
+  float t_CFD_MCP;
+  float t_CLK_P;
+  float t_CLK_M;
+  ClassDef(ModuleEventClass,1);
+};
+
+
+struct Event
+{
+  std::string stepLabel;
+  std::string ch1;
+  std::string ch2;
+  std::string label1;
+  std::string label2;
+  std::string label12;
+  float x;
+  float y;
+  int isBar1;
+  int isBar2;
+  int isHorizontal1;
+  int isHorizontal2;
+  float qfine1;
+  float qfine1L;
+  float qfine1R;
+  float qfine2;
+  float qfine2L;
+  float qfine2R;
+  float tot1;
+  float tot1L;
+  float tot1R;
+  float tot2;
+  float tot2L;
+  float tot2R;
+  float energy1;
+  float energy1L;
+  float energy1R;
+  float energy2;
+  float energy2L;
+  float energy2R;
+  long long time1;
+  long long time2;
+  float t1fine1;
+  float t1fine1L;
+  float t1fine1R;
+  float t1fine2;
+  float t1fine2L;
+  float t1fine2R;
+};
+
+
+
+void TrackProcess(float* cpu, float* mem, float* vsz, float* rss);
+
+std::vector<std::string> GetTokens(const std::string& input, const char& sep);
+
+float DeltaEta(const float& eta1, const float& eta2);
+float DeltaPhi(const float& phi1, const float& phi2);
+float DeltaR(const float& eta1, const float& phi1,
+             const float& eta2, const float& phi2);
+
+float FindXMaximum(TH1F* histo, const float& xMin, const float& xMax, const bool& checkDerivative = false);
+
+int FindBin(const float& val, const std::vector<float>* ranges);
+
+#endif
